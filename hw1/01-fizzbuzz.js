@@ -24,10 +24,10 @@ function processFizzbuzz(num) {
 
 const fizzbuzz = () => {
   // Add your code here
-  let idx = 1;
-  while (idx <= 100) {
-    console.log(processFizzbuzz(idx));
-    idx += 1;
+  let num = 1;
+  while (num <= 100) {
+    console.log(processFizzbuzz(num));
+    num += 1;
   }
 };
 
