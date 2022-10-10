@@ -17,7 +17,7 @@ function processFizzbuzz(num) {
     output = output.concat('buzz')
   }
   if (output === '') {
-    output = nums;
+    output = num;
   }
   return output;
 }
