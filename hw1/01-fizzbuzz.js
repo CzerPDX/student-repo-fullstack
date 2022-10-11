@@ -9,15 +9,15 @@ Use console.log() to write the proper output to the command line.
 
 **/
 function processFizzbuzz(num) {
-  let output = ''
-  if ((num % 3) === 0) {
-    output = output.concat('fizz')
+  let output = num
+  if ( ((num % 3) === 0) && ((num % 5) === 0) ) {
+    output = 'fizzbuzz'
   }
-  if ((num % 5) === 0) {
-    output = output.concat('buzz')
+  else if ((num % 3) === 0) {
+    output = 'fizz'
   }
-  if (output === '') {
-    output = num;
+  else if ((num % 5) === 0) {
+    output = 'buzz'
   }
   return output;
 }
