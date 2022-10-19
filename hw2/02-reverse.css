@@ -1,0 +1,15 @@
+#reverseOutput {
+    font-weight: 500;
+}
+
+.displayNone {
+    display: none;
+}
+
+.invalidInput { 
+    color: rgb(255,0,0);
+}
+
+.validInput {
+    color: rgb(36, 150, 59);
+}
