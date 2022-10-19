@@ -1,4 +1,10 @@
-/** Exercise 01 - Coins **/
+/** 
+ * Exercise 01 - Coins
+ * Brooke Czerwinski
+ * Full-Stack Web Development
+ * HW 2
+ * 
+ * **/
 
 // Money value amounts
 const DOLLAR_VAL = 1.00;

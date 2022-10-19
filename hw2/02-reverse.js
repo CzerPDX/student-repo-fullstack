@@ -2,6 +2,7 @@
  * Exercise 02 - Reverse 
  * Brooke Czerwinski
  * Full-Stack Web Development
+ * HW 2
  *
  * References
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
@@ -11,17 +12,19 @@
 
 // Function to reverse string
 function reverseNumber(input) {
-    str = input.toString()
-    return str.split('').reverse().join('')
+    str = input.toString();
+    return str.split('').reverse().join('');
  }
 
+ // Validate input and run reverse string on valid input
+ // Outputs result to DOM
 const validReverse = () => {
     let responseString = ``;
     
     // Get the input the user entered
     const userInput = document.getElementById("input").value;
     const numberRegex = new RegExp(/\b\d{8}\b/);                        // Regex pattern that will match exactly 8 digits
-    const reverseOutputDiv = document.getElementById('reverseOutput')
+    const reverseOutputDiv = document.getElementById('reverseOutput');
     
 
     // Tets the format of input against the regex defined above
@@ -29,16 +32,17 @@ const validReverse = () => {
     // If input was valid proceed
     if (validity) {
         // Apply valid class on output div. Overwrites any previous classes
-        reverseOutputDiv.className = `validInput`
+        reverseOutputDiv.className = `validInput`;
         // Reverse the number
-        reversedNumber = reverseNumber(userInput)
+        reversedNumber = reverseNumber(userInput);
         // Build the output string using interpolation
-        responseString = `${userInput} --> ${reversedNumber}`
+        responseString = `${userInput} --> ${reversedNumber}`;
     }
     // Otherwise give an error
     else {
-        reverseOutputDiv.className = `invalidInput`
-        responseString = `Error: Please input an 8-digit number`
+        // Apply valid class on output div. Overwrites any previous classes
+        reverseOutputDiv.className = `invalidInput`;
+        responseString = `Error: Please input an 8-digit number`;
     }
     // Output result to HTML
     reverseOutputDiv.innerHTML = responseString;
