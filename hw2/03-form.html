@@ -9,6 +9,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="03-form.css"
+    />
     <script defer src="03-form.js"></script>
   </head>
   <body class="bg-dark">
@@ -46,22 +50,25 @@
       </div>
 
       <!-- Submit and reset buttons -->
-      <div class="mb-3 doubleButtons">
-        <input
-          type="submit"
-          class="btn btn-primary"
-          value="Submit"
-          id="reverse"
-          onclick="validateSignup()"
-        />
-        <button 
-          type="button"
-          class="btn btn-secondary"
-          class="btn btn-primary"
-          onclick="resetForm('signupForm')"
-        />Reset</button>
+      <div class="mb-3 row doubleButtons">
+        <div class="col">
+          <input
+            type="submit"
+            class="btn btn-primary"
+            value="Submit"
+            id="reverse"
+            onclick="validateSignup()"
+          />
+        </div>
+        <div class="col">
+          <button 
+            type="button"
+            class="btn btn-secondary"
+            class="btn btn-primary"
+            onclick="resetForm('signupForm')"
+          />Reset</button>
+        </div>
       </div>
-
     </form>
   </body>
 </html>
