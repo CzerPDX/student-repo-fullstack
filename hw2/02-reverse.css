@@ -1,3 +1,7 @@
+.doubleButtons > .btn {
+    display: inline-block;
+}
+
 #reverseOutput {
     font-weight: 500;
 }

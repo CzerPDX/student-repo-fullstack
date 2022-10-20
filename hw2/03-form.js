@@ -45,12 +45,13 @@ const validateSignup = () => {
         newsletterStr = `No, thank you.`;
     }
 
-    // Print message to the console
-    console.log(`========= Form Submission =========
-    Name: ${inputName}
-    Email: ${inputEmail}
-    Feedback: ${feedbackStr}
-    Newsletter: ${newsletterStr}`);
+    // Build console output message and then print it to the console
+    console.group('========= Form Submission =========');
+    console.log(`Name: ${inputName}`);
+    console.log(`Name: ${inputEmail}`);
+    console.log(`Feedback: ${feedbackStr}`);
+    console.log(`Newsletter: ${newsletterStr}`);
+    console.groupEnd();
 }
 
 
