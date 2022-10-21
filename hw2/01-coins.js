@@ -31,7 +31,7 @@ const getMoneyName = (moneyCount, moneyValue) => {
 
     // Figure out the plurality and name of the denomination
     // Plural names
-    if ((moneyCount > 1) & (moneyCount < 0)) {
+    if (moneyCount > 1) {
         if (moneyValue == DOLLAR_VAL) {
             moneyName = `dollars`;
         }
