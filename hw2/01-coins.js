@@ -54,7 +54,7 @@ const getMoneyName = (moneyCount, moneyValue) => {
         }
     } catch (errorThrown) {
         console.error(errorThrown);
-        ProcessingInstruction.exit(1);
+        process.exit(1);
     }
     return moneyName;
 }
