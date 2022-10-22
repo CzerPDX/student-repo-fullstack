@@ -29,25 +29,32 @@ const countMultiples = (currentTotal, denomination) => {
 const getMoneyName = (moneyCount, moneyValue) => {
     let moneyName = ``;
 
-    // First, find out what denomiation we are workign with using moneyValue
-    // Then use ternary operator to decide whether plural or singular form is returned.
-    //      (moneyCount > 1) ? (plural) : (singular)
-    switch(moneyValue) {
-        case DOLLAR_VAL:
-            moneyName = moneyCount > 1 ? 'dollars' : 'dollar';
-            break;
-        case QUARTER_VAL:
-            moneyName = moneyCount > 1 ? 'quarters' : 'quarter';
-            break;
-        case DIME_VAL:
-            moneyName = moneyCount > 1 ? 'dimes' : 'dime';
-            break;
-        case NICKEL_VAL:
-            moneyName = moneyCount > 1 ? 'nickels' : 'nickel';
-            break;
-        case PENNY_VAL:
-            moneyName = moneyCount > 1 ? 'pennies' : 'penny';
-            break;
+    try {
+        // First, find out what denomiation we are workign with using moneyValue
+        // Then use ternary operator to decide whether plural or singular form is returned.
+        //      (moneyCount > 1) ? (plural) : (singular)
+        switch(moneyValue) {
+            case DOLLAR_VAL:
+                moneyName = moneyCount > 1 ? 'dollars' : 'dollar';
+                break;
+            case QUARTER_VAL:
+                moneyName = moneyCount > 1 ? 'quarters' : 'quarter';
+                break;
+            case DIME_VAL:
+                moneyName = moneyCount > 1 ? 'dimes' : 'dime';
+                break;
+            case NICKEL_VAL:
+                moneyName = moneyCount > 1 ? 'nickels' : 'nickel';
+                break;
+            case PENNY_VAL:
+                moneyName = moneyCount > 1 ? 'pennies' : 'penny';
+                break;
+            default:
+                throw 'Unknown money value';
+        }
+    } catch (errorThrown) {
+        console.error(errorThrown);
+        ProcessingInstruction.exit(1);
     }
     return moneyName;
 }
