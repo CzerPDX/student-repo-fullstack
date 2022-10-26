@@ -73,59 +73,63 @@ const calculateChange = (input) => {
     let returnString = ``;                  // String to return to user
 
     // Check that input dollar amount is less than 10.00
-    if (input <= 10)
-    {
-        // Initialize denomination counts
-        let currentCentsTotal = 0
+    if (input > 10) {
+        returnString = `\$${input} ==> Error: the number is too large`;
+    }
+    // If the input value is more than 10.00 return an error
+    else if (input < 0) {
+        returnString = `\$${input} ==> Error: the number is too small`;
+    }
+    // Otherwise process the values
+    else {
+        let currentCents = 0
 
-        if (input >= 0) {
-            let dollarCount = Math.floor(input / DOLLAR_VAL);
-            if (dollarCount > 0) {
-                // Avoid rounding errors by working with currentCentsTotal as integers
-                currentCentsTotal = parseInt(input - (dollarCount * DOLLAR_VAL));
-                returnString = formatOutputString(returnString, dollarCount, DOLLAR_VAL, input);
-            }
+        // Dollars
+        let dollarCount = Math.floor(input / DOLLAR_VAL);
+        if (dollarCount > 0) {
+            returnString = formatOutputString(returnString, dollarCount, DOLLAR_VAL, input);
         }
-        else {
-            console.error(`Error! Must enter a positive number between 0 and 10!`)
-        }
+
+        // Translate remaining cents to change sizes
+        // Avoid rounding errors by working with currentCents as integers (multiply by 100)
+        let totalInChange = Math.round(input.toString() * 100);
+        let dollarsInChange = (dollarCount * DOLLAR_VAL * 100);
+        currentCents = totalInChange - dollarsInChange;
         
-        // Find out how many quarters and subtract that amt from the currentTotal
-        if (currentTotal > 0) {
-            let quarterCount = Math.floor(currentCentsTotal / (QUARTER_VAL * 100));
-            currentCentsTotal -= quarterCount * (QUARTER_VAL * 100)
+        // Quarters
+        if (currentCents > 0) {
+            let quarterCount = Math.floor(currentCents / (QUARTER_VAL * 100));
+            currentCents -= quarterCount * (QUARTER_VAL * 100)
             returnString = formatOutputString(returnString, quarterCount, QUARTER_VAL, input);
         }
 
-        // Find out how many dimes and subtract that amt from the currentTotal
-        if (currentTotal > 0) {
-            let dimeCount = Math.floor(currentCentsTotal / (DIME_VAL * 100));
-            currentCentsTotal -= dimeCount * (DIME_VAL * 100)
+        // Dimes
+        if (currentCents > 0) {
+            let dimeCount = Math.floor(currentCents / (DIME_VAL * 100));
+            currentCents -= dimeCount * (DIME_VAL * 100)
             returnString = formatOutputString(returnString, dimeCount, DIME_VAL, input);
         }
 
-        // Find out how many nickels and subtract that amt from the currentTotal
-        if (currentTotal > 0) {
-            let nickelCount = Math.floor(currentCentsTotal / (NICKEL_VAL * 100));
-            currentCentsTotal -= nickelCount * (NICKEL_VAL * 100)
+        // Nickels
+        if (currentCents > 0) {
+            let nickelCount = Math.floor(currentCents / (NICKEL_VAL * 100));
+            currentCents -= nickelCount * (NICKEL_VAL * 100)
             returnString = formatOutputString(returnString, nickelCount, NICKEL_VAL, input);
         }
 
-        // Find out how many pennies and subtract that amt from the currentTotal
-        if (currentTotal > 0) {
-            let pennyCount = Math.floor(currentCentsTotal / (PENNY_VAL * 100));
-            currentCentsTotal -= pennyCount * (PENNY_VAL * 100)
+        // Pennies
+        if (currentCents > 0) {
+            let pennyCount = Math.floor(currentCents / (PENNY_VAL * 100));
+            currentCents -= pennyCount * (PENNY_VAL * 100)
             returnString = formatOutputString(returnString, pennyCount, PENNY_VAL, input);
         }
     }
-    // If the input value is more than 10.00 return an error
-    else {
-        returnString = `\$${input} ==> Error: the number is too large`;
-    }
-    
 
     return returnString;
 };
+
+console.log(calculateChange(0.29));
+// $0.29 ==> 1 quarter, 4 pennies
 
 // Sample Test Cases
 console.log(calculateChange(4.62));
@@ -137,7 +141,7 @@ console.log(calculateChange(0.16));
 console.log(calculateChange(15.11));
 // $15.11 ==> Error: the number is too large
 
-// // Test all possible values
-// for (let i = 0; i <= 1001; i++) {
-//     console.log(calculateChange(i * 0.01));
-// }
+// Test all possible values
+for (let i = 0; i <= 1001; i++) {
+    console.log(calculateChange(i * 0.01));
+}
