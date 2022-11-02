@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- Demonstrate how to use an API with javascript using swapi.dev site (Star Wars API) -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UVA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device=width, initial-scale=1.0">
+        <!-- We add the javascript source here in the head tag -->
+        <script defer type="text/javascript" src="fetch.js"></script>
+        <!-- 
+            We used to put the script as the last thing in the body of the HTML
+            because we needed to wait until the element was created before executing the script.
+            However, things are different now because we can use a DEFER to make sure that
+            the elements load before the javascript is executed.
+
+            Technically we wouldn't need the defer here because it won't be changing anything on the page
+        -->
+        <title>SWAPI Fetch Test</title>
+    </head>
+    <body>
+        <h1>Fetch</h1>
+        <p>Using fetch in the browser to get data from an API</p>
+
+        <label for="userInput">
+            <p>Enter an API (or leave blank for https://swapi.dev/api/planets/)</p>
+            <!-- Fetch the data for the planets using this button that calls the javascript function fetchTest with the argument -->
+            <input type = "button" id="fetchTestButton" onclick = "fetchTest('https://swapi.dev/api/planets/')" value = "Click me for planet data!!"> 
+        </label> 
+
+        <div id="outputAPI">
+
+        </div>
+    </body>
+</html>
+
