@@ -4,9 +4,11 @@
   "description": "",
   "main": "isrc/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "server-test": "echo \"Error: no test specified\" && exit 1",
+    "server-start": "node src/server.js",
+    "server-dev": "nodemon src/server.js",
+    "response-dev": "nodemon src/02-response.js",
+    "routing-dev": "nodemon src/03-routing.js"
   },
   "keywords": [],
   "author": "",

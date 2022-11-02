@@ -230,11 +230,65 @@ Since we don't use the browser API with node, we won't be able to see `console.l
 
 > node --inspect-brk index.js
 
-
-## Modules
+# Modules
 
 The CommonJS module specification is the standard used in npm for working with modules (as opposed to ES6 modules, which are used in the browser).
 
 Built-in module system is accessible through the `modules.exports` API.
 
 "Modules" and "packages" are often referred to interchangably. They are very similar but there are some differences between them.
+
+We have ES6 modules in the browser, so if we see those imported somewhere (like in React) there will be like `import React from React` in React. The first `React` is the name of the import (where is it coming from) and the second one is the name of the dependency (which also happens to be `React` here).
+
+On the backend we will do the CommonJS module which will be a bit different. We're going to use `require` rather than `import` and then the name of the dependency where it's coming from.
+
+#### Export the character.js
+
+Define it in something like `character.js`
+
+```javascript
+// character.js
+const character = {
+first: 'Leia',
+last: 'Organa'
+}
+
+module.exports = character;
+```
+
+Then you can use it elsewhere by importing it with `require` (example in a hypothetical `index.js` is displayed below)
+
+```javascript
+// index.js
+// import the charcter file using "require"
+const character = require('./character');
+```
+
+We also could do various different named exports as well. We could set up individual variable object for each one of those (such as Luke and Han, etc).
+
+
+## Setting Up a Server with Node.js
+
+Most of the time when we are working with Node we will want to set up a server to work with it. So that's provided by the Node developers.
+
+* We can create a server with the built-in `http` module.
+  * The `createServer()` method creates a new HTTP server, which is set to listen on the specified port and hostname. When we are testing we can use localhost but we will replace this with a real hostname once we go live.
+  * The `callback` then executes and the server is ready, meaning the server is running.
+* Whenever a new request is received from the client, the request event is called, which proides two objects:
+  * A request object -> http.incomingMessage
+  * A response object -> http.serverResponse
+
+**An example of a server is available by running `npm run server-dev` or `npm run server-start` in the `node-demo` folder.**
+
+*NOTE! Though `port 5000` is used in some of the examples throughout these notes, that's because they come from some outdated material. Port 5000 is now used by OSX system and so should not be used. It is no longer an open port*
+
+
+## Routing Requests
+
+* Routing defines what data is served at different endpoints.
+  * We serve different information to the client based on which route we're on.
+  * An example of different endpoints is typing in `pdx.edu` and `pdx.edu/computer-science`. These are both different routes with two different endpoints.
+  * Applications can have different endpoints which can be used, for example, to allow access via different protocols such as SSH and HTTP
+* The request argument has a URL property (`request.url`) as well as many other properties that we can use to define routes.
+
+##### src/03-routing.js will contain examples of routing

@@ -1,11 +1,12 @@
 // Notes from Catarina Paun's class
 
 // This means we will be requiring that requests come in over hyper text transfer protocol!
+// This is the CommonJS import below. The name of the module is "http"
 const http = require('http');
 // We will be using 5001 as our port to view our output from (localhost:5001 will be running after we run the script)
 const port = 5001;
 
-// create the server object using the Node.js built-in http module 
+// create the server object using the Node.js built-in "http" module 
 /*
     We take in the request and the response as arguments
     Request:    The request we get from the client
@@ -45,7 +46,8 @@ const server = http.createServer((req, res) => {
   receives incoming client connection requests and manages the traffic of these requests 
   to the database server."
 */
-// set the server to listen on port 5001
-server.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+// set the server to listen to localhost on port 5001.
+const hostname = 'localhost';
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}`);
 });
