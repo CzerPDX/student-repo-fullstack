@@ -291,9 +291,98 @@ Most of the time when we are working with Node we will want to set up a server t
 
 ##### src/03-routing.js will contain examples of routing
 
+
 ## Reading from a file
 
-* To read a file in Node.js we can use another built-in module, the `fs` module and the `readFile()` method
+* To read a file in Node.js we can use another built-in module, the `fs` module and the `readFile()` method. This will read the file into memory.
   * The default encoding is utf8
   * `fs` will be our default way to access the file system.
 * We can use the same module to write, append, update, rename, or delete files.
+
+##### src/04-buffer-data.js will contain an example of buffering.
+
+
+## Streams
+
+* Streams are one of the fundamental concepts of Node.js. They are used to handle reading/writing files, network communications, and more.
+  * Node is single-threaded, so when we are working with a larger amount of data it won't be feasible to read and process all that data all at once. Waiting for the data to be read and processed can create a bottleneck.
+* Typically, a file is read into memory from start to finish, but with streams it can be read and processed piece by piece.
+  * **Memory efficiency** -> We can start processing a part of a file before the full file is loaded into memory.
+    * Maybe we can use part of that info before the rest of it is completed? For example we could display the results that we have processed out to the user as they complete!
+  * **Time efficiency** -> Takes less time to start processing data.
+
+So, how does it work? We use the `fs` module again here. We use `createReadStream()` and `createWriteStream()`
+
+##### src/05-streams.js will contain an example of streaming.
+
+
+## Event Loops
+
+* JavaScript and Node.js are single-threaded, and ipmlement asynchronous and non-blocking behavior, including events and callbacks.
+
+  * From [https://nodejs.org/en/docs/guides/blocking-vs-non-blocking/](https://nodejs.org/en/docs/guides/blocking-vs-non-blocking/https:/)
+
+    > **Blocking** is when the execution of additional JavaScript in the Node.js process must wait until a non-JavaScript operation completes. This happens because the event loop is unable to continue running JavaScript while a **blocking** operation is occurring.
+    >
+    > In Node.js, JavaScript that exhibits poor performance due to being CPU intensive rather than waiting on a non-JavaScript operation, such as I/O, isn't typically referred to as **blocking** . Synchronous methods in the Node.js standard library that use libuv are the most commonly used **blocking** operations. Native modules may also have **blocking** methods.
+    >
+    > All of the I/O methods in the Node.js standard library provide asynchronous versions, which are **non-blocking** , and accept callback functions. Some methods also have **blocking** counterparts, which have names that end with `Sync`.
+    >
+    > Blocking methods execute synchronously while non-blocking methods execute asynchronously.
+    >
+* The event loop polls for different events. When those events happen, the event handler (a callback function) is invoked.
+
+  * From [https://nodejs.org/es/docs/guides/event-loop-timers-and-nexttick/](https://nodejs.org/es/docs/guides/event-loop-timers-and-nexttick/https:/)
+
+    > #### What is the Event Loop?
+    >
+    > The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
+    >
+    > #### Event Loop Explained
+    >
+    > When Node.js starts, it initializes the event loop, processes the provided input script (or drops into the [REPL](https://nodejs.org/api/repl.html#repl_repl), which is not covered in this document) which may make async API calls, schedule timers, or call `process.nextTick()`, then begins processing the event loop.
+    >
+    > The following diagram shows a simplified overview of the event loop's order of operations:
+    >
+    > ```sql
+    >    ┌───────────────────────────┐
+    > ┌─>│           timers          │
+    > │  └─────────────┬─────────────┘
+    > │  ┌─────────────┴─────────────┐
+    > │  │     pending callbacks     │
+    > │  └─────────────┬─────────────┘
+    > │  ┌─────────────┴─────────────┐
+    > │  │       idle, prepare       │
+    > │  └─────────────┬─────────────┘      ┌───────────────┐
+    > │  ┌─────────────┴─────────────┐      │   incoming:   │
+    > │  │           poll            │<─────┤  connections, │
+    > │  └─────────────┬─────────────┘      │   data, etc.  │
+    > │  ┌─────────────┴─────────────┐      └───────────────┘
+    > │  │           check           │
+    > │  └─────────────┬─────────────┘
+    > │  ┌─────────────┴─────────────┐
+    > └──┤      close callbacks      │
+    >    └───────────────────────────┘
+    > ```
+    > *note: each box will be referred to as a "phase" of the event loop.
+    >
+    > #### Phases Overview
+    >
+    > * **timers** : this phase executes callbacks scheduled by `setTimeout()` and `setInterval()`.
+    > * **pending callbacks** : executes I/O callbacks deferred to the next loop iteration.
+    > * **idle, prepare** : only used internally.
+    > * **poll** : retrieve new I/O events; execute I/O related callbacks (almost all with the exception of close callbacks, the ones scheduled by timers, and `setImmediate()`); node will block here when appropriate.
+    > * **check** : `setImmediate()` callbacks are invoked here.
+    > * **close callbacks** : some close callbacks, e.g. `socket.on('close', ...)`.
+    >
+* Certain objects (emitters) can emit named events that cause function objects (listeners) to be called.
+
+  * Example: A stream emits an event whenever data is available to be read.
+  * From [https://nodejs.dev/en/learn/the-nodejs-event-emitter/](https://nodejs.dev/en/learn/the-nodejs-event-emitter/https:/)
+
+    > If you worked with JavaScript in the browser, you know how much of the interaction of the user is handled through events: mouse clicks, keyboard button presses, reacting to mouse movements, and so on.
+    >
+    > On the backend side, Node.js offers us the option to build a similar system using the [`events` module](https://nodejs.org/api/events.html).
+    >
+    > This module, in particular, offers the `EventEmitter` class, which we'll use to handle our events.
+    >

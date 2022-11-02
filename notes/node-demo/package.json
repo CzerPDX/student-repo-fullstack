@@ -10,7 +10,7 @@
     "response-dev": "nodemon --inspect src/02-response.js",
     "routing-dev": "nodemon --inspect src/03-routing.js",
     "buffer-dev": "nodemon --inspect src/04-buffer-data.js",
-    "stream-dev": "nodemon --inspect src/05-stream.js",
+    "streams-dev": "nodemon --inspect src/05-streams.js",
     "post-dev": "nodemon --inspect src/06-post-data.js",
     "static-dev": "nodemon --inspect src/07-static-files.js",
     "gc-dev": "nodemon --inspect src/08-gc.js",

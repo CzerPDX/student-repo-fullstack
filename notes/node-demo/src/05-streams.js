@@ -3,8 +3,13 @@ const fs = require('fs');
 const port = process.env.PORT || 5001;
 
 const server = http.createServer((req, res) => {
-  const readable = fs.createReadStream('lorem.txt');
-  const writeable = fs.createWriteStream('out.txt');
+  // This is a simplified version but usually we would want error handling around
+  // createReadStream() and createWriteStream() below.
+  const readable = fs.createReadStream('src/lorem.txt');
+  // Writes it out to a file
+  const writeable = fs.createWriteStream('src/out.txt');
+  // We can also pipe the data to different places in our application including to different
+  // routes if we wanted to.
   readable.pipe(writeable);
   readable.pipe(res);
 });
