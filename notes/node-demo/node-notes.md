@@ -330,6 +330,8 @@ So, how does it work? We use the `fs` module again here. We use `createReadStrea
     >
     > Blocking methods execute synchronously while non-blocking methods execute asynchronously.
     >
+
+
 * The event loop polls for different events. When those events happen, the event handler (a callback function) is invoked.
 
   * From [https://nodejs.org/es/docs/guides/event-loop-timers-and-nexttick/](https://nodejs.org/es/docs/guides/event-loop-timers-and-nexttick/https:/)
@@ -364,6 +366,7 @@ So, how does it work? We use the `fs` module again here. We use `createReadStrea
     > └──┤      close callbacks      │
     >    └───────────────────────────┘
     > ```
+    >
     > *note: each box will be referred to as a "phase" of the event loop.
     >
     > #### Phases Overview
@@ -386,3 +389,18 @@ So, how does it work? We use the `fs` module again here. We use `createReadStrea
     >
     > This module, in particular, offers the `EventEmitter` class, which we'll use to handle our events.
     >
+
+
+## POST Requests
+
+POST requests are how we will will be handling input from the user. When we grab the data from the form we want to send it to the server and we might even interact with the database.
+
+* An example is a login. That data is not going to be processed client-side, it will be sent to the server to be processed. We also want to implement some kind of database that will check the value of the un/pw.
+
+##### src/07-post-data.js will contain an example of posting.
+
+
+## Serving Static Files
+
+* To create web applications, we need our server to send back (or *serve*) entire files (ie: .html pages, css files, images, etc) back to the client when the user navigates to a certain route.
+* We can use the third-party `node-static` module to accomplish this.

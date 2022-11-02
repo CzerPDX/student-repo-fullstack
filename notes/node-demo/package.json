@@ -6,13 +6,13 @@
   "scripts": {
     "server-test": "echo \"Error: no test specified\" && exit 1",
     "server-start": "node src/server.js",
-    "server-dev": "nodemon --inspect src/server.js",
+    "server-dev": "nodemon --inspect src/01-server.js",
     "response-dev": "nodemon --inspect src/02-response.js",
     "routing-dev": "nodemon --inspect src/03-routing.js",
-    "buffer-dev": "nodemon --inspect src/04-buffer-data.js",
+    "buffer-data-dev": "nodemon --inspect src/04-buffer-data.js",
     "streams-dev": "nodemon --inspect src/05-streams.js",
-    "post-dev": "nodemon --inspect src/06-post-data.js",
-    "static-dev": "nodemon --inspect src/07-static-files.js",
+    "post-data-dev": "nodemon --inspect src/06-post-data.js",
+    "static-files-dev": "nodemon --inspect src/07-static-files.js",
     "gc-dev": "nodemon --inspect src/08-gc.js",
     "form-dev": "nodemon --inspect src/09-form.js"
   },
@@ -20,6 +20,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^7.0.1"
+    "nodemon": "^2.0.20",
+    "node-static": "^0.7.11"
+  },
+  "dependencies": {
+    "node-static": "^0.7.11"
   }
 }

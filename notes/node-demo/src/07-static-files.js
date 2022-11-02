@@ -4,8 +4,10 @@ const http = require('http');
 const port = process.env.PORT || 5001;
 
 // static files are in the public/ directory
-const file = new static.Server('./public');
+// It can sometimes also be called "assets" or "images" etc
+const file = new static.Server('./src/public');
 
+// Based on the 
 const server = http.createServer((req, res) => {
   // main route
   if (req.url === '/') {
@@ -21,6 +23,14 @@ const server = http.createServer((req, res) => {
 
     // serve index.html without specifying the file name
     file.serveFile('/form.html', 200, {}, req, res);
+  }
+
+  // submission page route
+  else if (req.url === '/submit') {
+    console.log(`${req.method} - ${req.url}`);
+
+    // server other files by specifying their names
+    file.serveFile('/submit.html', 200, {}, req, res);
   }
 
   // any other route --> handle 404
