@@ -266,7 +266,6 @@ const character = require('./character');
 
 We also could do various different named exports as well. We could set up individual variable object for each one of those (such as Luke and Han, etc).
 
-
 ## Setting Up a Server with Node.js
 
 Most of the time when we are working with Node we will want to set up a server to work with it. So that's provided by the Node developers.
@@ -282,7 +281,6 @@ Most of the time when we are working with Node we will want to set up a server t
 
 *NOTE! Though `port 5000` is used in some of the examples throughout these notes, that's because they come from some outdated material. Port 5000 is now used by OSX system and so should not be used. It is no longer an open port*
 
-
 ## Routing Requests
 
 * Routing defines what data is served at different endpoints.
@@ -292,3 +290,10 @@ Most of the time when we are working with Node we will want to set up a server t
 * The request argument has a URL property (`request.url`) as well as many other properties that we can use to define routes.
 
 ##### src/03-routing.js will contain examples of routing
+
+## Reading from a file
+
+* To read a file in Node.js we can use another built-in module, the `fs` module and the `readFile()` method
+  * The default encoding is utf8
+  * `fs` will be our default way to access the file system.
+* We can use the same module to write, append, update, rename, or delete files.

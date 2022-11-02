@@ -43,7 +43,19 @@ const server = http.createServer((req, res) => {
     res.end();
   }
 
-  // Add your code here
+  else if (req.method === 'GET' && req.url === '/welcome') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write('<h1>Welcome !!!!!</h1>');
+    res.end();
+  }
+
+  // Handle 404
+  else {
+    console.log(`${req.method} - ${req.url}`);
+    res.writeHead(404, { 'Content-Type': 'text/html' });
+    res.write(`<h1>404: Page ${req.url} not found</h1>`);
+    res.end();
+  }
 });
 
 server.listen(port, () => {
