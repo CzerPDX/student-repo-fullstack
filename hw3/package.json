@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "routing-dev": "nodemon --inspect 01-routing.js"
+    "routing-dev": "nodemon --inspect 01-routing.js",
+    "url-dev": "nodemon --inspect 02-url.js",
+    "form-dev": "nodemon --inspect 03-form.js"
   },
   "keywords": [],
   "author": "Brooke Czerwinski",

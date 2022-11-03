@@ -1,13 +1,20 @@
+/** 
+ * Exercise 01 - Node Routes 
+ * Brooke Czerwinski
+ * Full-Stack Web Development
+ * HW 3
+ *
+ * References:
+ * https://stackoverflow.com/questions/34218141/how-to-get-cookies-from-request-module-in-node-js
+ * https://stackoverflow.com/questions/7695997/split-the-sentences-by-and-remove-surrounding-spaces
+**/
+
+
 const http = require('http');
 const { reset } = require('nodemon');
 const port = process.env.PORT || 5001;
 const oneDay = 86400;
 
-/*
-  References:
-  https://stackoverflow.com/questions/34218141/how-to-get-cookies-from-request-module-in-node-js
-  https://stackoverflow.com/questions/7695997/split-the-sentences-by-and-remove-surrounding-spaces
-*/
 
 // http://localhost:5001/welcome should return a status code 200 with a welcome message of your choice in html format
 
@@ -21,7 +28,7 @@ const oneDay = 86400;
 
 // For other routes, such as http://localhost:5001/other, this exercise should return a status code 404 with '404 - page not found' in html format
 
-function findCookie(req, cookieName) {
+const findCookie = (req, cookieName) => {
   let cookieValue = null;
   // Only attempt to look for the cookie if there are cookies in the request header
   console.log(req.headers.cookie);

@@ -1,5 +1,35 @@
+/** 
+ * Exercise 02 - urls 
+ * Brooke Czerwinski
+ * Full-Stack Web Development
+ * HW 3
+ *
+ * References:
+ * https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/forEach
+ * https://www.javascripttutorial.net/dom/css/add-styles-to-an-element/
+**/
+
+
+const { table } = require('console');
 const http = require('http');
+const urls = require('url');
 const port = process.env.PORT || 5001;
+
+const buildQueryTable = (url) => {
+  // Build a table to hold the query information
+  let queryTable = `<table style="border: 1px solid;">`;
+  // Build a table row for each key/value pair
+  url.searchParams.forEach((value, key) => {
+    queryTable += `<tr style="border: 1px solid;">`;
+    queryTable += `<td style="border: 1px solid;">${key}</td>`
+    queryTable += `<td style="border: 1px solid;">${value}</td>`
+    queryTable += `</tr>`;
+  });
+  // Close the table
+  queryTable += `</table>`;
+  
+  return queryTable;
+}
 
 const server = http.createServer((req, res) => {
   const routes = [
@@ -22,6 +52,7 @@ const server = http.createServer((req, res) => {
     return result;
   };
 
+
   if (req.url === '/') {
     let routeResults = getRoutes();
 
@@ -29,9 +60,19 @@ const server = http.createServer((req, res) => {
     res.write(`<h1>Exercise 02</h1>`);
 
     res.write(`<ul> ${routeResults} </ul>`);
+    res.end();
   }
 
   // Add your code here
+
+  // All paths besides root will take you here to process all query data
+  else {
+    const attributeTable = buildQueryTable(url);
+
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write(`${attributeTable}`);
+    res.end();
+  }
 
   res.end();
 });
