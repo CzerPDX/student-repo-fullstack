@@ -1,9 +1,12 @@
 const http = require('http');
+const { reset } = require('nodemon');
 const port = process.env.PORT || 5001;
+const oneDay = 86400;
 
 /*
   References:
-  https://www.geeksforgeeks.org/express-js-res-redirect-function/
+  https://stackoverflow.com/questions/34218141/how-to-get-cookies-from-request-module-in-node-js
+  https://stackoverflow.com/questions/7695997/split-the-sentences-by-and-remove-surrounding-spaces
 */
 
 // http://localhost:5001/welcome should return a status code 200 with a welcome message of your choice in html format
@@ -17,6 +20,28 @@ const port = process.env.PORT || 5001;
 // http://localhost:5001/check-cookies should return 'yes' / 'no' in plain text depending on whether the browser has the 'hello' cookie
 
 // For other routes, such as http://localhost:5001/other, this exercise should return a status code 404 with '404 - page not found' in html format
+
+function findCookie(req, cookieName) {
+  let cookieValue = null;
+  // Only attempt to look for the cookie if there are cookies in the request header
+  console.log(req.headers.cookie);
+  if (req.headers.cookie) {
+    cookieList = req.headers.cookie.split(';').map(function(cookie) { return cookie.trim(); });
+
+    // Go through cookies while there are cookies to go through and we have also not found the target cookie name
+    for (let i = 0; (i < cookieList.length) && (cookieValue === null); i++) {
+      // Split the cookie at the '='
+      const currCookie = cookieList[i].split('=');
+      console.log(currCookie);
+      // Set cookieName to yes if we found the hello cookie
+      if (currCookie[0] === cookieName) {
+        cookieValue = currCookie[1];
+      }
+    }
+  }
+
+  return cookieValue;
+}
 
 const server = http.createServer((req, res) => {
   const routes = [
@@ -72,13 +97,41 @@ const server = http.createServer((req, res) => {
 
   // Cache page
   // http://localhost:5001/cache should return 'this resource was cached' in html format and set the cache max age to a day
-
+  else if (req.url === '/cache') {
+    res.writeHead(200, { 
+      'Content-Type': 'text/html', 
+      'Cache-Control': `max-age=${oneDay}`
+    });
+    res.write(`<h1>this resource was cached</h1>`);
+    res.end();
+  }
 
   // Cookie page
   // http://localhost:5001/cookie should return 'cookies… yummm' in plain text and set 'hello=world' as a cookie
+  else if (req.url === '/cookie') {
+    res.writeHead(200, 
+      { 
+        'Content-Type': 'text/html',
+        'Set-Cookie': 'hello=world'
+      }
+    );
+    // res.write(`${req.headers.cookie}`)
+    res.write(`cookies... yummm`)
+    res.end();
+  }
 
-  // Check-cookie page
+  // Check cookie page
   // http://localhost:5001/check-cookies should return 'yes' / 'no' in plain text depending on whether the browser has the 'hello' cookie
+  else if (req.url === '/check-cookies') {
+    let helloFound = 'no';
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    // If the result of findCookie() is not null then set helloFound to yes
+    if (findCookie(req, 'hello')) {
+        helloFound = 'yes';
+    }
+    res.write(`${helloFound}`);
+    res.end();
+  }
 
   // Handle 404
   // For other routes, such as http://localhost:5001/other, this exercise should return a status code 404 with '404 - page not found' in html format
