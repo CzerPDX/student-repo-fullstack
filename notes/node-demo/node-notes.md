@@ -404,3 +404,4 @@ POST requests are how we will will be handling input from the user. When we grab
 
 * To create web applications, we need our server to send back (or *serve*) entire files (ie: .html pages, css files, images, etc) back to the client when the user navigates to a certain route.
 * We can use the third-party `node-static` module to accomplish this.
+  * *Remember to add the `node-static` module to the package.json for running this one!*
