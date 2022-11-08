@@ -1,3 +1,12 @@
+/** 
+ * Exercise 02 - Session with Express
+ * Brooke Czerwinski
+ * Full-Stack Web Development
+ * HW 4
+ *
+ * References:
+**/
+
 const express = require('express');
 const session = require('express-session');
 const app = express();

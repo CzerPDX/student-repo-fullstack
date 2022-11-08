@@ -1,3 +1,13 @@
+/** 
+ * Exercise 04 - Templates with express
+ * Brooke Czerwinski
+ * Full-Stack Web Development
+ * HW 4
+ *
+ * References:
+ * https://stackoverflow.com/questions/44608042/express-static-server-cache-control-with-max-age-0-must-revalidate
+**/
+
 const express = require('express');
 const axios = require('axios');
 
