@@ -2,9 +2,7 @@
  * Exercise 02 - Session with Express
  * Brooke Czerwinski
  * Full-Stack Web Development
- * HW 4
- *
- * References:
+ * HW 4                                                                                 
 **/
 
 const express = require('express');
@@ -12,10 +10,6 @@ const session = require('express-session');
 
 const app = express();
 const port = process.env.PORT || 5001;
-
-// Add your code here
-
-// Use dynamic routing
 
 // Use the express-session module
 app.use(
@@ -28,10 +22,6 @@ app.use(
     },
   })
 );
-
-// app.get('/', (req, res) => {
-//   // Add your code here
-// });
 
 // All Routes!
 app.all('*', (req, res) => {
