@@ -92,6 +92,7 @@ const server = http.createServer((req, res) => {
   // Redirect page
   // http://localhost:5001/redirect should redirect the request to '/redirected' by using 302 as the status code / the redirected page should return a redirected message of your choice
   else if (req.url === '/redirect') {
+    res.redirect(302, '/redirected');
     res.writeHead(302, { location: '/redirected' });
     res.end();
   }
