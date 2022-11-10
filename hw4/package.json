@@ -12,12 +12,10 @@
   "version": "1.0.0",
   "main": "01-routing.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "routing-dev": "nodemon --inspect 01-routing.js",
     "sessions-dev": "nodemon --inspect 02-sessions.js",
     "form-dev": "nodemon --inspect 03-form.js",
-    "tmeplates-dev": "nodemon --inspect 04-templates.js"
+    "templates-dev": "nodemon --inspect 04-templates.js"
   },
   "keywords": [],
   "author": "",
