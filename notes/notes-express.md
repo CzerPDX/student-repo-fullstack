@@ -558,3 +558,157 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 ```
+
+## Templating Engines
+
+These are a straightforward and quick way of setting up a frontend that can go with your backend. There is significantly less to learn as opposed to a front-end framework. It's also taking a lot of the HTML and CSS and doing it in a different format.
+
+* A template engine enables you to use static template files in your application.
+* At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client.
+
+### Some templating engine examples:
+
+* **Pug** (formerly known as **Jade**)
+  * To install Pug: `npm install pug`
+  * The Express application generator uses Pug (Jade): `npx express-generator`
+* **Mustache**
+  * Logic-less Templates with JavaScript
+* **EJS**
+  * Embedded JavaScript Templates
+
+### Express Pug Project Structure
+
+![](assets/20221109_160012_image.png)
+
+```js
+// Simple index.pug example
+// index.pug file inside a views folder
+doctype html
+html
+  head
+    title #{title} - My Site
+    link(rel='stylesheet',  href='/styles.css')
+  body
+    header
+      h1 #{title}
+      ul
+        each item in results
+          li= item
+    footer
+      p @Copyright 2022. All rights reserved.
+```
+
+In the above we pass "results" which should be an iterable (not obvious from the code snippets, but results is an iterable) and the title. They get used as above! This is a very simple version.
+
+Templates can do some of the things that PHP does with importing different sections such as the header, footer, etc. Below is a more extensive code examle using pug using the same file structure from above:
+
+`/app.js` file:
+
+```js
+// app.js file
+const express = require('express');
+const app = express();
+
+// We set the location of the views/templates
+app.set('views', __dirname + '/views');
+// We set our templating engine as pug here
+app.set('view engine', 'pug');
+// Specify where our static files are (html, css, images, etc)
+app.use(express.static('/public'));
+
+// Render the template on the main route.
+app.get('/', (req, res) => {
+  res.render('index', {
+    // This is the data we send our template
+    title: 'Main',
+    results: results
+  });
+});
+```
+
+The `/views/index.pug` template file:
+
+```js
+// views/index.pug
+doctype html
+html
+  include includes/head.pug
+  body
+    header
+      include includes/navbar.pug
+    main.container
+      h1 #{heading}
+      section.text Welcome to the #{title} page!
+      img(src='https://placekitten.com/400/200' alt='image of a kitten' width='400' height='200')
+      section.text Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, iste a consectetur dolores dolore voluptates nam cum dignissimos unde accusantium sequi praesentium magnam, culpa earum error sunt ipsum, similique dolorum.Deleniti dolores inventore, nisi cumque omnis exercitationem expedita suscipit minus unde soluta quisquam earum iure. Enim sunt unde, excepturi iure culpa hic rem ipsa, non, quae nam fugiat ducimus voluptatum?Aliquid, quidem! Eaque amet tenetur facere aspernatur sunt dolor nostrum nulla eos commodi nam obcaecati enim voluptates eveniet sit tempora tempore illo error, dignissimos veniam. Est corrupti dolores dolore aperiam!Facilis possimus architecto magni quae nisi distinctio voluptates odit. Dolore voluptas, tempore blanditiis hic quo omnis culpa, ex corporis maxime perspiciatis quae eius sequi, accusamus laudantium provident amet est excepturi.Ut minima voluptatibus sunt numquam fugit. Iusto vel reprehenderit laborum asperiores eos, autem quis quibusdam quae sed, mollitia natus voluptatibus impedit, sequi ad voluptatum? Quos vero quod voluptate veniam nam.Corrupti autem magni delectus accusantium! Dolorum distinctio ratione at perferendis quas tempore, nam illo nobis a reprehenderit repudiandae. Omnis velit aperiam modi natus veritatis nulla vero aspernatur, vitae a aliquam?Repellat illo adipisci nemo omnis tempore aliquid quia numquam amet voluptates voluptas laboriosam, quisquam possimus impedit at aperiam similique tenetur quos ducimus dolores perspiciatis eius nobis quod et quae.
+    include includes/footer.pug
+```
+
+`/views/page.pug` templatefile:
+
+```js
+doctype html
+html
+  include includes/head.pug
+  body
+    header
+      include includes/navbar.pug
+    main.container
+      h1 #{heading}  
+      h2 #{subheading}  
+      section.text Welcome to the #{title} page!
+      img(src='https://placekitten.com/600/300' alt='image of a kitten' width='600' height='300')
+      section.text Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur eos facilis blanditiis ipsa? Ullam odio natus molestiae, harum ipsum quas, ducimus velit tempora perspiciatis accusantium, voluptatem nemo cum commodi sit.Sequi dolorem labore atque dolorum unde hic explicabo nisi minus laboriosam veniam libero, accusantium totam odio, eaque quia ea natus dolore itaque minima. Officia quo perferendis, nihil explicabo deserunt dolorem?Autem deleniti minima ipsam impedit, dolorem accusamus doloremque. Dolorum mollitia ullam, perspiciatis dolor beatae exercitationem nulla officia reiciendis optio fugit. Perferendis dolor fugit, natus quidem ratione corrupti cupiditate enim provident.Ex neque fuga at soluta quibusdam perspiciatis, totam, pariatur ducimus unde rem dignissimos quod, repellendus maiores! Enim, illum totam, quisquam nisi suscipit illo deleniti explicabo accusamus repudiandae natus recusandae perspiciatis.Non perspiciatis facere aspernatur et vitae sapiente inventore autem, dolor, ad tenetur tempora similique perferendis cumque nulla iste deserunt. In earum cum illum sequi voluptatibus sapiente! Soluta possimus nihil expedita!Unde suscipit soluta, praesentium temporibus nisi voluptates commodi sit reiciendis vero beatae laudantium dolorem nihil repellat, iste debitis iusto eum odit quidem. Unde praesentium sequi, deleniti reiciendis velit perspiciatis dolores?
+    include includes/footer.pug
+```
+
+Includes:
+
+`/views/includes/footer.pug`
+
+```js
+// views/includes/footer.pug
+footer.footer.bg-light.w-100
+  p.copyright @Copyright 2021. All rights reserved.
+```
+
+`/views/includes/head.pug`
+
+```js
+//- include footer.pug
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title #{title} - My Site
+  link(rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css')
+  link(rel='stylesheet', href='/stylesheets/styles.css')
+
+```
+
+As you can see the formatting of .pug files is a little different
+
+* There are no curly braces and indenting properly is very important.
+* Variables are represented by `#{variable-name}`.
+
+### HTML to PUG converters
+
+Say you want to make a navbar like in `/views/includes/navbar.pug`:
+
+```js
+nav.navbar.fixed-top.navbar-expand-sm.navbar-light.bg-light
+  a.navbar-brand(href='/')| Pug Templates
+  button.navbar-toggler(type='button' data-toggle='collapse' aria-expanded='false' aria-label='Toggle navigation')
+    span.navbar-toggler-icon
+  div.collapse.navbar-collapse
+    ul.navbar-nav.mr-auto 
+      li.nav-item   
+        a.nav-link(href='/')| Home 
+      li.nav-item   
+        a.nav-link(href='/about')| About 
+      li.nav-item   
+        a.nav-link(href='/contact') Contact
+```
+
+You don't have to write all of this out yourself. You can go get a navabar [say with Bootstrap](https://getbootstrap.com/docs/5.0/components/navbar/) and then use a HTML to PUG converter such as [https://html-to-pug.com/](https://html-to-pug.com/) to convert it into the pug file.
+
+The documentation can be found at [pugjs.org](https://pugjs.org/api/getting-started.html)
