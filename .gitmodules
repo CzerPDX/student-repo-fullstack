@@ -1,0 +1,3 @@
+[submodule "notes/fullstack-examples"]
+	path = notes/fullstack-examples
+	url = git@github.com:caterinasworld/fullstack-examples.git

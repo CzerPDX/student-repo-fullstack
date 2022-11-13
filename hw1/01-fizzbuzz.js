@@ -8,9 +8,27 @@ Write a program that writes all the numbers from 1 to 100, with some exceptions:
 Use console.log() to write the proper output to the command line.
 
 **/
+function processFizzbuzz(num) {
+  let output = num
+  if ( ((num % 3) === 0) && ((num % 5) === 0) ) {
+    output = 'fizzbuzz'
+  }
+  else if ((num % 3) === 0) {
+    output = 'fizz'
+  }
+  else if ((num % 5) === 0) {
+    output = 'buzz'
+  }
+  return output;
+}
 
 const fizzbuzz = () => {
   // Add your code here
+  let num = 1;
+  while (num <= 100) {
+    console.log(processFizzbuzz(num));
+    num += 1;
+  }
 };
 
 fizzbuzz();
