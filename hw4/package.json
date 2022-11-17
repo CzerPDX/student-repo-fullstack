@@ -2,6 +2,23 @@
   "dependencies": {
     "axios": "^0.21.1",
     "express": "^4.17.1",
-    "pug": "^3.0.2"
-  }
+    "pug": "^3.0.2",
+    "express-session": "^1.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "name": "hw4",
+  "version": "1.0.0",
+  "main": "01-routing.js",
+  "scripts": {
+    "routing-dev": "nodemon --inspect 01-routing.js",
+    "sessions-dev": "nodemon --inspect 02-sessions.js",
+    "form-dev": "nodemon --inspect 03-form.js",
+    "templates-dev": "nodemon --inspect 04-templates.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Homework 4 for Fullstack class"
 }
